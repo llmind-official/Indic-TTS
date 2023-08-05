@@ -1,5 +1,8 @@
 # 1. Create environment
+git clone https://github.com/llmind-official/Indic-TTS.git
 apt-get install libsndfile1-dev ffmpeg enchant
+
+cd Indic-TTS
 conda create -n tts-env
 source activate tts-env
 
@@ -21,4 +24,5 @@ wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-rel
 wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-release/hi.zip
 wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-release/en+hi.zip
 unzip {en,hi,en+hi}.zip
+rm {en,hi,en+hi}.zip
 cd ../../

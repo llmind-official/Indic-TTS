@@ -1,3 +1,4 @@
 fastapi
 gunicorn
 uvicorn
+ai4bharat-transliteration
