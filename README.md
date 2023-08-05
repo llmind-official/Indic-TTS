@@ -80,12 +80,12 @@ cp TTS/TTS/bin/synthesize.py to the local TTS installation # added multiple outp
 Trained model weight and config files can be downloaded at [this link.](https://github.com/AI4Bharat/Indic-TTS/releases/tag/v1-checkpoints-release)
 
 ```
-python3 -m TTS.bin.synthesize --text <TEXT> \
-    --model_path <LANG>/fastpitch/best_model.pth \
-    --config_path <LANG>/config.json \
-    --vocoder_path <LANG>/hifigan/best_model.pth \
-    --vocoder_config_path <LANG>/hifigan/config.json \
-    --out_path <OUT_PATH>
+python3 -m TTS.bin.synthesize --text "Delhi is a beautiful city. It is capital of India." \
+    --model_path en/fastpitch/best_model.pth \
+    --config_path en/fastpitch/config.json \
+    --vocoder_path en/hifigan/best_model.pth \
+    --vocoder_config_path en/hifigan/config.json \
+    --out_path ../out.wav
 ```
 
 ---

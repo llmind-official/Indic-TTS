@@ -1,0 +1,9 @@
+follow steps in install.sh
+
+Save the model in the root of ./Indic-TTS
+such as ,
+./Indic-TTS/en/**
+
+On running the test inference script (say test.sh) with the 
+command line example if there is an error then, copy the '<LANG>/fastpitch/speaker.pth'
+into 'Indic-TTS/models/v1/en/fastpitch/'
