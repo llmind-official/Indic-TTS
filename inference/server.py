@@ -8,7 +8,6 @@ from TTS.utils.synthesizer import Synthesizer
 
 from src.inference import TextToSpeechEngine
 from src.models.request import TTSRequest, Sentence, TTSConfig
-from src.models.response import TTSReponse
 from fastapi.responses import StreamingResponse
 
 from scipy.io.wavfile import write as scipy_wav_write

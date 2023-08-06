@@ -1,6 +1,6 @@
 # 1. Create environment
 git clone https://github.com/llmind-official/Indic-TTS.git
-apt-get install libsndfile1-dev ffmpeg enchant
+apt-get install libsndfile1-dev ffmpeg enchant -y
 
 cd Indic-TTS
 conda create -n tts-env
@@ -28,6 +28,7 @@ rm en.zip
 rm hi.zip
 cd ../../
 cd inference/
-mv -r ../models .
+mv ../models .
 pip install -r requirements-server.txt
 pip install -r requirements-utils.txt
+uvicorn server:api --host "0.0.0.0" --port 6006
