@@ -13,35 +13,21 @@ from fastapi.responses import StreamingResponse
 
 from scipy.io.wavfile import write as scipy_wav_write
 SUPPORTED_LANGUAGES = {
-    'as' : "Assamese - অসমীয়া",
-    'bn' : "Bangla - বাংলা",
-    'brx': "Boro - बड़ो",
     'en' : "English (Indian accent)",
-    'en+hi': "English+Hindi (Hinglish code-mixed)",
-    'gu' : "Gujarati - ગુજરાતી",
     'hi' : "Hindi - हिंदी",
-    'kn' : "Kannada - ಕನ್ನಡ",
-    'ml' : "Malayalam - മലയാളം",
-    'mni': "Manipuri - মিতৈলোন",
-    'mr' : "Marathi - मराठी",
-    'or' : "Oriya - ଓଡ଼ିଆ",
-    'pa' : "Panjabi - ਪੰਜਾਬੀ",
-    'raj': "Rajasthani - राजस्थानी",
-    'ta' : "Tamil - தமிழ்",
-    'te' : "Telugu - తెలుగు",
 }
 
 models = {}
 for lang in SUPPORTED_LANGUAGES:
     try:
       models[lang]  = Synthesizer(
-          tts_checkpoint=f'model/v1/{lang}/fastpitch/best_model.pth',
-          tts_config_path=f'model/v1/{lang}/fastpitch/config.json',
-          tts_speakers_file=f'model/v1/{lang}/fastpitch/speakers.pth',
+          tts_checkpoint=f'models/v1/{lang}/fastpitch/best_model.pth',
+          tts_config_path=f'models/v1/{lang}/fastpitch/config.json',
+          tts_speakers_file=f'models/v1/{lang}/fastpitch/speakers.pth',
           # tts_speakers_file=None,
           tts_languages_file=None,
-          vocoder_checkpoint=f'model/v1/{lang}/hifigan/best_model.pth',
-          vocoder_config=f'model/v1/{lang}/hifigan/config.json',
+          vocoder_checkpoint=f'models/v1/{lang}/hifigan/best_model.pth',
+          vocoder_config=f'models/v1/{lang}/hifigan/config.json',
           encoder_checkpoint="",
           encoder_config="",
           use_cuda=True,
@@ -67,7 +53,7 @@ def homepage():
 async def batch_tts(request: TTSRequest):
     print(request.items())
 
-@api.post("/tts")
+@api.get("/tts")
 async def batch_tts(request: Request):
     body = await request.json()
     print(body)
@@ -79,26 +65,13 @@ async def batch_tts(request: Request):
     byte_io = io.BytesIO()
     scipy_wav_write(byte_io, 22050, ret)
     encoded_bytes = base64.b64encode(byte_io.read())
-    return Response(content=encoded_bytes, media_type="audio/mpeg")
+    if encoded_bytes:
+        print("Encoded")
+        return Response(encoded_bytes, media_type="audio/wav")
+    else:
+        print("Nothing")
+        return Response(b'bye')
 
-#@api.post("/tts")
-#async def batch_tts(request: Request, response: TTSResponse):
-#    body = await request.json()
-#    print(body)
-#    text = body['input'][0]
-#    lang = body['config']['language']
-#    speaker = body['config']['gender']
-#    request = TTSRequest(input=list(map(lambda i: Sentence(source=i), body['input'])), config=TTSConfig(language=Language(sourceLanguage=body['config']['language']), gender=body['config']['gender']))
-#    resp = engine.infer_from_request(request)
-#    #ret = engine.infer_from_text(text, lang, speaker)
-#    #byte_io = io.BytesIO()
-#    #scipy_wav_write(byte_io, 22050, ret)
-#    #encoded_bytes = base64.b64encode(byte_io.read())
-#    #encoded_string = encoded_bytes.decode()
-#    #return StreamingResponse(encoded_string, media_type="audio/mpeg")
-#    return resp
-
-
-if __name__ == "__main__":
-    # uvicorn server:api --host 0.0.0.0 --port 5050 --log-level info
-    uvicorn.run("server:api", host="0.0.0.0", port=6006, log_level="info")
+#if __name__ == "__main__":
+#    # uvicorn server:api --host 0.0.0.0 --port 6006 --log-level info --reload
+#    uvicorn.run("server:api", host="0.0.0.0", port=6006, log_level="info")

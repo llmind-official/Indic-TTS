@@ -27,3 +27,7 @@ unzip hi.zip
 rm en.zip
 rm hi.zip
 cd ../../
+cd inference/
+mv -r ../models .
+pip install -r requirements-server.txt
+pip install -r requirements-utils.txt
