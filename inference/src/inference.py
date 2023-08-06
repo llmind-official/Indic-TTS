@@ -22,7 +22,7 @@ class TextToSpeechEngine:
         self,
         models: dict,
         allow_transliteration: bool = True,
-        enable_denoiser: bool = True,
+        enable_denoiser: bool = False,
     ):
         self.models = models
         # TODO: Ability to instantiate models by accepting standard paths or auto-downloading

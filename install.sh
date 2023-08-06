@@ -22,7 +22,8 @@ mkdir -p models/v1/
 cd models/v1/
 wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-release/en.zip
 wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-release/hi.zip
-wget https://github.com/AI4Bharat/Indic-TTS/releases/download/v1-checkpoints-release/en+hi.zip
-unzip {en,hi,en+hi}.zip
-rm {en,hi,en+hi}.zip
+unzip en.zip
+unzip hi.zip
+rm en.zip
+rm hi.zip
 cd ../../
