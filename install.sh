@@ -1,5 +1,6 @@
 # 1. Create environment
 git clone https://github.com/llmind-official/Indic-TTS.git
+apt-get update --fix-missing
 apt-get install libsndfile1-dev ffmpeg enchant -y
 
 cd Indic-TTS
